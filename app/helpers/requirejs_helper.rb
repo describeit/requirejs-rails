@@ -112,6 +112,7 @@ module RequirejsHelper
 
   def base_url(js_asset)
     js_asset_path = javascript_path(js_asset)
+    js_asset_path = "https://#{js_asset_path}" unless js_asset_path =~ /^https?:\/\//
     uri = URI.parse(js_asset_path)
     asset_host = uri.host && js_asset_path.sub(uri.request_uri, '')
     [asset_host, Rails.application.config.relative_url_root, Rails.application.config.assets.prefix].join
