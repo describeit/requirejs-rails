@@ -48,7 +48,7 @@ module RequirejsHelper
           modules.each { |m| paths[m] = javascript_path(m).sub /\.js$/, '' }
 
           #if run_config.has_key? 'paths'
-          if requirejs.user_config.has_keys? 'paths'
+          if requirejs.user_config.has_key? 'paths'
             # Add paths for assets specified by full URL (on a CDN)
             #run_config['paths'].each do |k, v|
             requirejs.user_config['paths'].each do |k, v|
