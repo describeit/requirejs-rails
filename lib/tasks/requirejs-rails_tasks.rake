@@ -9,6 +9,9 @@ require "requirejs/rails/builder"
 require "requirejs/rails/config"
 
 namespace :requirejs do
+
+  logger = Logger.new(STDOUT)
+
   # This method was backported from an earlier version of Sprockets.
   def ruby_rake_task(task, force = true)
     env = ENV["RAILS_ENV"] || "production"
@@ -195,18 +198,18 @@ OS X Homebrew users can use 'brew install node'.
 
       # Copy original versions of assets to support source maps.
       # If any of these files were in the precompile list, the copied file and
-      # the source map will point to the compressed version due to sprokets caching.
-      # if requirejs.config.build_config['generateSourceMaps']
-      #   logger.info "Copying original files for source maps"
-      #   requirejs.env.each_logical_path do |logical_path|
-      #     next unless requirejs.config.asset_allowed?(logical_path)
-      #     if asset = requirejs.env.find_asset(logical_path)
-      #       filename = requirejs.config.target_dir + asset.logical_path
-      #       filename.dirname.mkpath
-      #       asset.write_to(filename)
-      #     end
-      #   end
-      # end
+      the source map will point to the compressed version due to sprokets caching.
+      if requirejs.config.build_config['generateSourceMaps']
+        logger.info "Copying original files for source maps"
+        requirejs.env.each_logical_path do |logical_path|
+          next unless requirejs.config.asset_allowed?(logical_path)
+          if asset = requirejs.env.find_asset(logical_path)
+            filename = requirejs.config.target_dir + asset.logical_path
+            filename.dirname.mkpath
+            asset.write_to(filename)
+          end
+        end
+      end
     end
   end
 
