@@ -18,7 +18,7 @@ module RequirejsHelper
 
     html = ""
     cdn_pattern = Regexp.new("\\Ahttps?://")
-    
+
     once_guard do
       rjs_attributes = {
           src: javascript_path("require")
@@ -47,9 +47,11 @@ module RequirejsHelper
           paths = {}
           modules.each { |m| paths[m] = javascript_path(m).sub /\.js$/, '' }
 
-          if run_config.has_key? 'paths'
+          #if run_config.has_key? 'paths'
+          if requirejs.user_config.has_keys? 'paths'
             # Add paths for assets specified by full URL (on a CDN)
-            run_config['paths'].each do |k, v|
+            #run_config['paths'].each do |k, v|
+            requirejs.user_config['paths'].each do |k, v|
               paths[k] = v if ( v.is_a?(Array) || cdn_pattern.match(v) )
 
             end
