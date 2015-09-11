@@ -183,10 +183,6 @@ OS X Homebrew users can use 'brew install node'.
         end
         FileUtils.cp "#{built_asset_path}.gz", "#{digest_asset_path}.gz"
 
-        # Copy non digest versions too
-        FileUtils.cp built_asset_path, non_digest_asset_path
-        FileUtils.cp "#{built_asset_path}.gz", "#{non_digest_asset_path}.gz"
-
         # Copy source maps if generateSourceMaps is enabled
         if requirejs.config.build_config['generateSourceMaps']
           FileUtils.cp "#{built_asset_path}.map", "#{non_digest_asset_path}.map"
@@ -200,17 +196,17 @@ OS X Homebrew users can use 'brew install node'.
       # Copy original versions of assets to support source maps.
       # If any of these files were in the precompile list, the copied file and
       # the source map will point to the compressed version due to sprokets caching.
-      if requirejs.config.build_config['generateSourceMaps']
-        logger.info "Copying original files for source maps"
-        requirejs.env.each_logical_path do |logical_path|
-          next unless requirejs.config.asset_allowed?(logical_path)
-          if asset = requirejs.env.find_asset(logical_path)
-            filename = requirejs.config.target_dir + asset.logical_path
-            filename.dirname.mkpath
-            asset.write_to(filename)
-          end
-        end
-      end
+      # if requirejs.config.build_config['generateSourceMaps']
+      #   logger.info "Copying original files for source maps"
+      #   requirejs.env.each_logical_path do |logical_path|
+      #     next unless requirejs.config.asset_allowed?(logical_path)
+      #     if asset = requirejs.env.find_asset(logical_path)
+      #       filename = requirejs.config.target_dir + asset.logical_path
+      #       filename.dirname.mkpath
+      #       asset.write_to(filename)
+      #     end
+      #   end
+      # end
     end
   end
 
