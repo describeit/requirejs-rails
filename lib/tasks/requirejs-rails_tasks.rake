@@ -198,7 +198,7 @@ OS X Homebrew users can use 'brew install node'.
 
       # Copy original versions of assets to support source maps.
       # If any of these files were in the precompile list, the copied file and
-      the source map will point to the compressed version due to sprokets caching.
+      # the source map will point to the compressed version due to sprokets caching.
       if requirejs.config.build_config['generateSourceMaps']
         logger.info "Copying original files for source maps"
         requirejs.env.each_logical_path do |logical_path|
